@@ -29,3 +29,13 @@ export const Forground = styled.div`
   padding: 20px;
   color: black;
 `
+
+export const ListContainer = styled.div`
+    width: 95%;
+    height: 83vh;
+    transform: translate(50px, 4vh);
+    padding: 25px;
+    background-color: #B8F2E6;
+    color: black;
+    display: flex;
+`
