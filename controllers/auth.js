@@ -1,5 +1,6 @@
 const asyncHandler = require('../middleware/async')
 const User = require('../models/User')
+const uuid = require('uuid')
 
 // @desc      Register user
 // @route     POST /api/v1/auth/register
@@ -12,7 +13,8 @@ exports.register = asyncHandler(async (req, res, next) => {
       name,
       email,
       password,
-      role
+      role,
+      streamKey: uuid.v1()
     })
   
     res.status(200).json({ success: true, user })

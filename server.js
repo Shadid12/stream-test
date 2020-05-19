@@ -8,18 +8,21 @@ const nms = require('./libs/media_server');
 const streams = require('./routes/streams')
 const auth = require('./routes/auth')
 const users = require('./routes/users')
+const cors = require('cors')
 
 // Load env vars
 dotenv.config({ path: './config/config.env' })
 
 const app = express()
 
+// CORS
+app.use(cors())
+
 // Body parser
 app.use(express.json());
 
 // Cookie parser
 app.use(cookieParser());
-
 
 
 connectDB()

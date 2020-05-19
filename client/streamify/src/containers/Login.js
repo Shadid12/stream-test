@@ -5,6 +5,7 @@ import {
     Background,
     Forground
 } from '../components/styled';
+import axios from 'axios';
 
 function Login() {
     const [state, setState] = React.useState({
@@ -18,9 +19,17 @@ function Login() {
         });
     }
 
-    const handleSubmit = event => {
+    const handleSubmit = async event => {
         event.preventDefault();
-        console.log('Show me the state', state)
+        try {
+            let res = await axios.post('http://localhost:5000/api/v1/auth/login', {
+                "email": state.email,
+                "password": state.password
+            })
+            sessionStorage.setItem('stremify', res.data.token);
+        } catch (error) {
+            console.log('--->>>', error)
+        }
     }
     return (
         <Container className="container">
@@ -40,7 +49,7 @@ function Login() {
                     />
                     <label for="passField">Password</label>
                     <input type="password"  id="passField" name="password" onChange={handleInput}/>
-                    <input class="button-primary" type="submit" value="Register" />
+                    <input class="button-primary" type="submit" value="Login" />
                 </fieldset>
                 </form>
             </Forground>

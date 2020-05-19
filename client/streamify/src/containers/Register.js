@@ -5,8 +5,12 @@ import {
     Background,
     Forground
 } from '../components/styled';
+import axios from 'axios';
+import {
+    withRouter
+} from "react-router-dom";
 
-function Register() {
+function Register(props) {
     const [state, setState] = React.useState({
         username: '',
         email: '',
@@ -19,9 +23,19 @@ function Register() {
         });
     }
 
-    const handleSubmit = event => {
+    const handleSubmit = async event => {
         event.preventDefault();
-        console.log('Show me the state', state)
+        try {
+            await axios.post('http://localhost:5000/api/v1/auth/register', {
+                "name": state.username,
+                "email": state.email,
+                "role": "publisher",
+                "password": state.password
+            })
+            props.history.push('/')
+        } catch (error) {
+            console.log('--->>>', error)
+        }
     }
 
     return (
@@ -54,4 +68,4 @@ function Register() {
     );
 }
 
-export default Register;
+export default withRouter(Register);
